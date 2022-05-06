@@ -12,10 +12,10 @@ const createIntern = async function (req, res) {
         let regex = /^[a-zA-Z ]{2,30}$/
         let mobileregex = /^[0]?[6789]\d{9}$/
         let emailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-        if (!data.name) { res.status(400).send({ status: false, message: "KINDLY ADD name" }) }
-        if (!data.email) { res.status(400).send({ status: false, message: "KINDLY ADD email" }) }
-        if (!data.mobile) { res.status(400).send({ status: false, message: "KINDLY ADD mobile" }) }
-        if (!data.collegeId) { res.status(400).send({ status: false, message: "KINDLY ADD collegeId" }) }
+        if (!data.name) { return res.status(400).send({ status: false, message: "KINDLY ADD name" }) }
+        if (!data.email) {return res.status(400).send({ status: false, message: "KINDLY ADD email" }) }
+        if (!data.mobile) { return res.status(400).send({ status: false, message: "KINDLY ADD mobile" }) }
+        if (!data.collegeId) {return res.status(400).send({ status: false, message: "KINDLY ADD collegeId" }) }
         //REGEX VALIDATIONS
         if (!regex.test(data.name)) return res.status(400).send({ status: false, message: "NAME SHOULD ONLY CONTAIN ALPHABETS AND LENGTH MUST BE IN BETWEEN 2-30" })
         if (!mobileregex.test(data.mobile)) return res.status(400).send({ status: false, message: "MOBILE NO. SHOULD BE IN VALID FORMAT" })
@@ -47,10 +47,10 @@ const createIntern = async function (req, res) {
         if (duplicate) { return res.status(400).send({ status: false, message: "EMAIL ALREADY EXISTS" }) }
 
         let saved = await InternModel.create(data)
-        res.status(201).send({ status: true, Intern: saved })
+        return res.status(201).send({ status: true, Intern: saved })
     }
     catch (error) {
-        res.status(500).send({ status: false, message: error.message })
+       return res.status(500).send({ status: false, message: error.message })
     }
 }
 
@@ -91,7 +91,7 @@ const getList = async function (req, res) {
 
 
     catch (error) {
-        res.status(500).send({ status: false, message: error.message })
+        return res.status(500).send({ status: false, message: error.message })
     }
 }
 
