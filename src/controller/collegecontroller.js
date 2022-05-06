@@ -27,7 +27,7 @@ const createCollege = async function (req, res) {
 
   // creating clg
   const createData = await CollegeModel.create(data)
-  res.status(201).send({ status: true, College: createData })
+  return res.status(201).send({ status: true, College: createData })
 }
 
 
